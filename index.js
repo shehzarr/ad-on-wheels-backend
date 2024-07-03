@@ -1,12 +1,14 @@
-const express = require("express")
+import express from 'express';
+import bodyParser from 'body-parser';
+import userRoutes from './routes/index.js';
 
 const app = express();
-const PORT = 5000
+const PORT = 5000;
 
-app.get("/",function(request,response){
-response.send("Hello World!")
-})
+app.use(bodyParser.json());
 
-app.listen(PORT, function () {
-    console.log("Started application on port %d", PORT)
-});
+app.use('/users', userRoutes);
+
+app.get('/', (req, res) => res.send('HELLO FROM HOMEPAGE'))
+
+app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
